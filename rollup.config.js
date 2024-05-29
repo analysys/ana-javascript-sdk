@@ -71,7 +71,7 @@ function getPlugins () {
     copy({
       targets: [{
         src: './dist/*',
-        dest: [`./demo/vue/public/sdk/${process.env.LibVERSION}`, `./demo/react/public/sdk/${process.env.LibVERSION}`, `./demo/jquery/sdk/${process.env.LibVERSION}`]
+        dest: [`./demos/vue/public/sdk/${process.env.LibVERSION}`, `./demos/react/public/sdk/${process.env.LibVERSION}`, `./demos/jquery/sdk/${process.env.LibVERSION}`]
       }]
     })
   ]

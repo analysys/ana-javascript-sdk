@@ -2,6 +2,7 @@ import { config } from '../../store/config'
 import ajax from '../../utils/requrst/ajax'
 import { globalWindow } from '../../constant/index'
 import { loadJs } from "../../utils/browser"
+import { getElementContent } from "../../utils"
 import { getTagName, getEleIndex, eleForEach } from "../../utils/browser/elements"
 import track from './track'
 import { printLog } from '../printLog'
@@ -23,8 +24,6 @@ export function visualClick (e) {
       return 'break'
     }
   })
-
-  
 
   const max = pathList.length - 2
   function getPath (min) {
@@ -54,25 +53,32 @@ export function visualClick (e) {
   const pathArr = []
   for (let i = 0; i < max; i++) {
     const { path, pathIndex } = getPath(i)
-    pathArr.push(path, pathIndex)
+    pathArr.push({path, el: pathList[i]}, {path: pathIndex, el: pathList[i]})
   }
-
+  
   // 匹配链条对应的可视化埋点
   const itemMap = {}
   pathArr.forEach(o => {
-    const item = visualMap[o]
+    const item = visualMap[o.path]
     if (item && !itemMap[item.appEventId]) {
+      item['el'] = o.el
       itemMap[item.appEventId] = item
     }
   })
 
   // 上报可视化埋点数据
-  for (const key in itemMap) {
-    const attrs = {}
-    itemMap[key].properties.forEach(o => {
-      attrs[o.key] = o.value
-    })
-    track(key, attrs)
+  try {
+    for (const key in itemMap) {
+      const attrs = {
+        $element_content: getElementContent(itemMap[key].el)
+      }
+      itemMap[key].properties.forEach(o => {
+        attrs[o.key] = o.value
+      })
+      track(key, attrs)
+    }
+  } catch(err) {
+    console.log(err)
   }
 }
 

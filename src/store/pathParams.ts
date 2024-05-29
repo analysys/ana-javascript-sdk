@@ -1,4 +1,4 @@
-
+import { getUrlParams } from '../utils/path'
 /**
  * 路径相关参数信息存储
  */
@@ -27,12 +27,10 @@ export function getPathParams (): object {
 }
 
 export function setPathParams () : any {
-  const url = new URL(decodeURI(window.location.href))
-  const searchParams = url.searchParams
-  pathParams.utm_campaign_id = searchParams.get('campaign_id') || ''
-  pathParams.utm_campaign = searchParams.get('utm_campaign') || ''
-  pathParams.utm_content = searchParams.get('utm_content') || ''
-  pathParams.utm_medium = searchParams.get('utm_medium') || ''
-  pathParams.utm_source = searchParams.get('utm_source') || ''
-  pathParams.utm_term = searchParams.get('utm_term') || ''
+  const searchParams = getUrlParams(window.location.href)
+  Object.keys(pathParams).forEach(key => {
+    if (searchParams[key]) {
+      pathParams[key] = searchParams[key]
+    }
+  })
 }

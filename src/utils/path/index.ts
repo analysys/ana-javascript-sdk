@@ -1,13 +1,27 @@
 
 import { isSpider } from "./isSpider"
 
+
+// 获取url参数
+export function getUrlParams(url: string) {
+  const reg = /(\w+)=([^&]+)/g;
+  const params = {};
+  let match;
+  
+  while ((match = reg.exec(url)) !== null) {
+    params[match[1]] = match[2];
+  }
+  
+  return params;
+}
+
+
 export function getUrlDomain (url) {
   if (url) {
     return url.split('?')[0]
   }
   return ''
 }
-
 
 export { isSpider }
 

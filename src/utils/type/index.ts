@@ -43,6 +43,8 @@ export function isFunction (value: any): boolean {
   return type(value) === 'function'
 }
 
+export const isElement = (value: any) => value instanceof HTMLElement
+
 export function isHtmlCollection (value: any) :boolean {
   return type(value) === 'htmlcollection'
 }
@@ -58,5 +60,7 @@ export function isEmptyObject (obj) {
 export function isAny () {
   return true
 }
+
+export const isSvg = (value: any) => value instanceof SVGElement
 
 export default type

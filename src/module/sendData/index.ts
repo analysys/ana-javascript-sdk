@@ -57,12 +57,7 @@ function postData () : any {
     return
   }
 
-  
-  // if (globalWindow.AnalysysModule && isFunction(globalWindow.AnalysysModule.uploadData)) {
-  //   option = globalWindow.AnalysysModule.uploadData(option);
-  // }
-
-  if (globalWindow.AnalysysModal && typeof (globalWindow.AnalysysModal) === 'function') {
+  if (globalWindow.AnalysysModal && isFunction(globalWindow.AnalysysModule)) {
     globalWindow.AnalysysModal(option.data)
   }
   
@@ -155,7 +150,12 @@ function sendData (data: buriedPointData, fn?: Function, isTrack?: boolean) : an
   const xwhat = data.xwhat
 
   // Hybrid模式下由原生端上报
-  if (isHybrid && ['$web_click', '$webstay', '$user_click'].indexOf(xwhat) === -1) {
+  if (isHybrid) {
+
+    // 部分预制事件走原生自定义上报
+    if (['$web_click', '$webstay', '$user_click'].indexOf(xwhat) > -1) {
+      isTrack = true
+    }
 
     // hybrid模式下删除这些属性，由原生上报
     const arr = ['$is_first_day', '$session_id', '$is_time_calibrated', '$startup_time', '$lib', '$lib_version', '$platform', '$debug', '$is_login']
@@ -163,13 +163,18 @@ function sendData (data: buriedPointData, fn?: Function, isTrack?: boolean) : an
       delete data.xcontext[o]
     })
 
-    const functionParams = [data.xcontext]
+    let functionParams = [data.xcontext]
     if (xwhat === '$pageview') {
       functionParams.unshift(data.xcontext.$title || '')
     }
     if (isTrack) {
       functionParams.unshift(xwhat)
     }
+
+    if (xwhat === '$alias') {
+      functionParams = [data.xwho, data.xcontext.$original_id]
+    }
+
     hybridSendDate(isTrack ? 'track' : xwhat, functionParams)
     return
   }
@@ -200,6 +205,7 @@ function sendData (data: buriedPointData, fn?: Function, isTrack?: boolean) : an
   if (config.sendType === 'img') {
     imgGetData(data)
   } else {
+    
     // 加入待上报队列
     addPostData(data)
     postData()

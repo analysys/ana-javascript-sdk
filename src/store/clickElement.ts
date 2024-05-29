@@ -2,9 +2,9 @@
  * 全埋点相关属性存储
  */
 
-import { getElementTargetUrl, getElementContent, getElementPath, getElementOffset, getElementScroll } from '../utils/browser/element'
+import { getElementTargetUrl, getElementContent, getElementPath, getElementOffset, getElementScroll, getElementAttr, getElementXpath } from '../utils'
 import { elementClickableCheck } from '../utils/verify/index'
-import { getElementAttr, getElementXpath } from 'lib-agile'
+
 
  interface clickElementValue {
   element_id?: string;

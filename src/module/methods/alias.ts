@@ -21,10 +21,10 @@ function alias (aliasId: string, fn?: Function) {
   }
 
   if (aliasId === getId()) {
-    successLog({
-      code: 20014
-    })
-    fn && isFunction(fn) && fn()
+    // successLog({
+    //   code: 20014
+    // })
+    // fn && isFunction(fn) && fn()
     return
   }
 

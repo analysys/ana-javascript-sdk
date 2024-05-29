@@ -6,6 +6,7 @@ import iframeMessage from './controller/iframMessage'
 storeInit()
 
 function init () {
+  
 
   // 添加热图视图
   createView()

@@ -1,10 +1,8 @@
 
 import { globalWindow } from '../../constant/index'
-import { assign } from '../../utils/object'
+import { isNumber, assign, getElementContent, getElementAttr, getElementXpath } from '../../utils'
 import { isConfigExposureEle, isExposureEle, getConfigEles } from './utils'
-import { isNumber, getElementAttr, getElementXpath } from 'lib-agile'
 import MD5 from '../../utils/md5'
-import { getElementContent } from '../../utils/browser/element'
 
 const AnalysysAgent = globalWindow.AnalysysAgent
 

@@ -46,7 +46,7 @@ function autoTrigger () {
       const path = eventAttribute.pageview.path
       if (path !== document.location.href) {
         triggerPageClose()
-        triggerPageView()
+        setTimeout(triggerPageView, 100)
       }
     })
   }

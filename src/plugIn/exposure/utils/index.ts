@@ -1,5 +1,4 @@
-import { getElementAttr, isArray, isFunction, isElement, isHtmlCollection } from 'lib-agile'
-
+import { isHtmlCollection, getElementAttr, isArray, isFunction, isElement} from '../../../utils'
 
 // 获取配置曝光元素有效列表
 export function getConfigEles (elements) {

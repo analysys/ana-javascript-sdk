@@ -7,4 +7,5 @@ yarn.lock
 bac
 vue-h5
 .eslintcache
-/demo/**/sdk
+demos/
+release.sh

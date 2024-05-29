@@ -2,7 +2,7 @@ import { createElement, eleCss } from '../../utils/index'
 import './index.scss'
 import { heatConfig } from '../../store/index'
 import { renderElementList } from '../nav'
-import { useElementXpath } from 'lib-agile'
+import { useElementXpath } from '../../../../utils'
 
 const htmlTpl = function(clickNum, clickNumPercent) {
   const percent = (clickNumPercent * 100).toFixed(2)

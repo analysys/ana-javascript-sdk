@@ -4,7 +4,7 @@ import { heatConfig, displayConfig } from '../../store/index'
 import { heatMapData } from '../../store/heatmap'
 import h337 from '../../utils/heatmap.js'
 import { resetGradient } from '../../utils/colorRange.js'
-import { useElementXpath } from 'lib-agile'
+import { useElementXpath } from '../../../../utils'
 
 const html = ``
 
